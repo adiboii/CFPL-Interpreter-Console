@@ -6,24 +6,7 @@ START
     i = 1
     
     WHILE(i <= y)
-    START
-        j=1
-        
-        WHILE(j <= x)
-        START
-            IF(i == 1 OR i == y OR j == 1 OR j == x)
-            START
-                OUTPUT: "[[][]]"
-            STOP
-            ELSE
-            START
-                OUTPUT: "  "
-            STOP
-            
-            j+=1
-        STOP
-
-        OUTPUT: "#"
+    START OUTPUT: "meh"
 
         i += 1
     STOP

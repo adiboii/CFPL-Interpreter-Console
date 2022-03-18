@@ -484,7 +484,12 @@ namespace CFPL_Interpreter_Console
 
                         if (tokenList[x].lex == Lexeme.START)
                         {
-                            executeBody(x + 1, ref x, skip || !loop);
+                            x++;
+                            if(tokenList[x].lex != Lexeme.NEWLINE)
+                            {
+                                throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
+                            }
+                            executeBody(x, ref x, skip || !loop);
                         }
                         else
                         {
@@ -503,7 +508,12 @@ namespace CFPL_Interpreter_Console
 
                         if (tokenList[x].lex == Lexeme.START)
                         {
-                            executeBody(x + 1, ref x, skip || !run);
+                            x++;
+                            if(tokenList[x].lex != Lexeme.NEWLINE)
+                            {
+                                throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
+                            }
+                            executeBody(x, ref x, skip || !run);
                         }
                         else
                         {
@@ -518,7 +528,12 @@ namespace CFPL_Interpreter_Console
 							
 							if (tokenList[x].lex == Lexeme.START)
 							{
-								executeBody(x + 1, ref x, skip || run);
+                                x++;
+                                if(tokenList[x].lex != Lexeme.NEWLINE)
+                                {
+                                    throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
+                                }
+								executeBody(x, ref x, skip || run);
 							}
 							else
 							{
