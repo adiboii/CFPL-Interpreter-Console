@@ -12,7 +12,7 @@ namespace CFPL_Interpreter_Console
 			// 	Console.WriteLine("Please specifiy file");
 			// 	return;
 			// }
-			Interpreter inter = new Interpreter("test.cpfl");
+			Interpreter inter = new Interpreter("test.cfpl");
 			try
 			{
 				inter.Run();
