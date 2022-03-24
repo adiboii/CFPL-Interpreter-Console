@@ -74,7 +74,7 @@ namespace CFPL_Interpreter_Console
             {-1, -1, -1, 2},
         };
 
-		int[,] structureDFA = new int[8, 9]{
+        int[,] structureDFA = new int[8, 9]{
             {1, -1, -1, -1, -1, -1, -1, -1, -1},
             {-1, 2, -1, -1, -1, -1, -1, -1, -1},
             {-1, 2, -1, 3, 5, -1, -1, -1, 2},
@@ -83,7 +83,7 @@ namespace CFPL_Interpreter_Console
             {-1, -1, 5, -1, -1, -1, 7, 6, -1},
             {-1, 6, -1, 3, -1, -1, -1, -1, -1},
             {-1, 7, -1, 3, 5, -1, -1, -1, 7},
-		};
+        };
 
 
         enum bType
@@ -257,7 +257,7 @@ namespace CFPL_Interpreter_Console
                                     else if (x < ln.Length && ln[x + 1] == '>')
                                     {
                                         tokenList.Add(new Token(Lexeme.NEQUAL, null, ctr));
-										x++;
+                                        x++;
                                     }
                                     else
                                     {
@@ -303,7 +303,7 @@ namespace CFPL_Interpreter_Console
                                     }
                                     lit.Clear();
                                     break;
-								case '\'':
+                                case '\'':
                                     lit.Clear();
                                     try
                                     {
@@ -336,7 +336,7 @@ namespace CFPL_Interpreter_Console
                                     }
                                     break;
                                 default:
-									throw new ErrorException($"Unknown character '{ln[x]}' on line x.");
+                                    throw new ErrorException($"Unknown character '{ln[x]}' on line x.");
                             }
 
                             lit.Clear();
@@ -415,9 +415,9 @@ namespace CFPL_Interpreter_Console
                         Declare(x, ref x);
                         break;
                     case Lexeme.START:
-                        if(tokenList[x+1].lex != Lexeme.NEWLINE)
+                        if (tokenList[x + 1].lex != Lexeme.NEWLINE)
                         {
-                            throw new ErrorException($"Illegal '{tks[x+1].lex}' on line {tks[x+1].line}.");
+                            throw new ErrorException($"Illegal '{tks[x + 1].lex}' on line {tks[x + 1].line}.");
                         }
                         x++;
                         executeBody(x, ref x, false);
@@ -485,16 +485,16 @@ namespace CFPL_Interpreter_Console
                         }
                         break;
                     case Lexeme.WHILE:
-						checkStructure(x);
+                        checkStructure(x);
                         int loopIn = x;
                         bool loop = evaluateBool(x + 1, ref x);
-						
-						while(tokenList[++x].lex == Lexeme.NEWLINE);
+
+                        while (tokenList[++x].lex == Lexeme.NEWLINE) ;
 
                         if (tokenList[x].lex == Lexeme.START)
                         {
                             x++;
-                            if(tokenList[x].lex != Lexeme.NEWLINE)
+                            if (tokenList[x].lex != Lexeme.NEWLINE)
                             {
                                 throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
                             }
@@ -509,16 +509,16 @@ namespace CFPL_Interpreter_Console
                             x = loopIn - 1;
                         }
                         break;
-					case Lexeme.IF:
-						checkStructure(x);
+                    case Lexeme.IF:
+                        checkStructure(x);
                         bool run = evaluateBool(x + 1, ref x);
-						
-						while(tokenList[++x].lex == Lexeme.NEWLINE);
+
+                        while (tokenList[++x].lex == Lexeme.NEWLINE) ;
 
                         if (tokenList[x].lex == Lexeme.START)
                         {
                             x++;
-                            if(tokenList[x].lex != Lexeme.NEWLINE)
+                            if (tokenList[x].lex != Lexeme.NEWLINE)
                             {
                                 throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
                             }
@@ -529,27 +529,27 @@ namespace CFPL_Interpreter_Console
                             throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
                         }
 
-						while(tokenList[++x].lex == Lexeme.NEWLINE);
-						
+                        while (tokenList[++x].lex == Lexeme.NEWLINE) ;
+
                         if (tokenList[x].lex == Lexeme.ELSE)
                         {
-							while(tokenList[++x].lex == Lexeme.NEWLINE);
-							
-							if (tokenList[x].lex == Lexeme.START)
-							{
+                            while (tokenList[++x].lex == Lexeme.NEWLINE) ;
+
+                            if (tokenList[x].lex == Lexeme.START)
+                            {
                                 x++;
-                                if(tokenList[x].lex != Lexeme.NEWLINE)
+                                if (tokenList[x].lex != Lexeme.NEWLINE)
                                 {
                                     throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
                                 }
-								executeBody(x, ref x, skip || run);
-							}
-							else
-							{
-								throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
-							}
+                                executeBody(x, ref x, skip || run);
+                            }
+                            else
+                            {
+                                throw new ErrorException($"Illegal '{tokenList[x].lex}' on line {tokenList[x].line}.");
+                            }
                         }
-						x--;
+                        x--;
                         break;
                     case Lexeme.STOP:
                         y = x + 1;
@@ -663,41 +663,41 @@ namespace CFPL_Interpreter_Console
 
             StringBuilder sb = new StringBuilder();
 
-			string value;
+            string value;
 
-			if(tokenList[index + 1].lex != Lexeme.ASSIGN)
-			{
-				switch (variables[tokenList[index].literal])
-				{
-					case bType.INT:
-						value = intVars[tokenList[index].literal].ToString();
-						break;
-					case bType.FLOAT:
-						value = floatVars[tokenList[index].literal].ToString();
-						break;
-					default:
-						throw new ErrorException($"Illegal IDENTIFIER '{tokenList[x].literal}' on line {tokenList[x].line}.");
-				}
+            if (tokenList[index + 1].lex != Lexeme.ASSIGN)
+            {
+                switch (variables[tokenList[index].literal])
+                {
+                    case bType.INT:
+                        value = intVars[tokenList[index].literal].ToString();
+                        break;
+                    case bType.FLOAT:
+                        value = floatVars[tokenList[index].literal].ToString();
+                        break;
+                    default:
+                        throw new ErrorException($"Illegal IDENTIFIER '{tokenList[x].literal}' on line {tokenList[x].line}.");
+                }
 
-				switch(tokenList[index + 1].lex)
-				{
-					case Lexeme.UAST:
-						sb.Append($"{value} *");
-						break;
-					case Lexeme.UFSLASH:
-						sb.Append($"{value} /");
-						break;
-					case Lexeme.UPLUS:
-						sb.Append($"{value} +");
-						break;
-					case Lexeme.UMINUS:
-						sb.Append($"{value} -");
-						break;
-					case Lexeme.UPERCENT:
-						sb.Append($"{value} %");
-						break;
-				}
-			}
+                switch (tokenList[index + 1].lex)
+                {
+                    case Lexeme.UAST:
+                        sb.Append($"{value} *");
+                        break;
+                    case Lexeme.UFSLASH:
+                        sb.Append($"{value} /");
+                        break;
+                    case Lexeme.UPLUS:
+                        sb.Append($"{value} +");
+                        break;
+                    case Lexeme.UMINUS:
+                        sb.Append($"{value} -");
+                        break;
+                    case Lexeme.UPERCENT:
+                        sb.Append($"{value} %");
+                        break;
+                }
+            }
 
             while (tokenList[x].lex != Lexeme.NEWLINE)
             {
@@ -757,7 +757,7 @@ namespace CFPL_Interpreter_Console
 
             DataTable dt = new DataTable();
 
-			string equation = sb.ToString();
+            string equation = sb.ToString();
 
             res = Convert.ToSingle(dt.Compute(sb.ToString(), ""));
 
@@ -1128,8 +1128,8 @@ namespace CFPL_Interpreter_Console
             return x;
         }
 
-		int checkStructure(int index)
-		{
+        int checkStructure(int index)
+        {
             int state = 0;
             int x = index;
             int pars = 0;
@@ -1138,12 +1138,12 @@ namespace CFPL_Interpreter_Console
             {
                 switch (tokenList[x].lex)
                 {
-					case Lexeme.WHILE:
-					case Lexeme.IF:
+                    case Lexeme.WHILE:
+                    case Lexeme.IF:
                         state = structureDFA[state, 0];
                         break;
                     case Lexeme.LPAR:
-						pars++;
+                        pars++;
                         state = structureDFA[state, 1];
                         break;
                     case Lexeme.RPAR:
@@ -1204,7 +1204,7 @@ namespace CFPL_Interpreter_Console
                 throw new ErrorException($"Invalid assignment on line {tokenList[x].line}.");
 
             return x;
-		}
+        }
 
         void Output(int index, ref int y)
         {
@@ -1525,7 +1525,7 @@ namespace CFPL_Interpreter_Console
         {
             int x = index + 2;
             List<string> inputList;
-			List<string> identifiers = new List<string>();
+            List<string> identifiers = new List<string>();
 
             string input = Console.ReadLine();
             inputList = input.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
@@ -1535,8 +1535,8 @@ namespace CFPL_Interpreter_Console
                 switch (tokenList[x].lex)
                 {
                     case Lexeme.IDENTIFIER:
-						identifiers.Add(tokenList[x].literal);
-						break;
+                        identifiers.Add(tokenList[x].literal);
+                        break;
                     case Lexeme.COMMA:
                         break;
 
@@ -1547,37 +1547,40 @@ namespace CFPL_Interpreter_Console
                 x++;
             }
 
-			if(identifiers.Count != inputList.Count)
-				throw new ErrorException($"Number of inputs({inputList.Count}) does not match up with number of variables({identifiers.Count}).");
+            if (identifiers.Count != inputList.Count)
+                throw new ErrorException($"Number of inputs({inputList.Count}) does not match up with number of variables({identifiers.Count}).");
 
-			var idenInp = identifiers.Zip(inputList, (iden, inp) => new {Iden = iden, Inp = inp});
+            var idenInp = identifiers.Zip(inputList, (iden, inp) => new { Iden = iden, Inp = inp });
 
-			foreach(var match in idenInp)
-			{
-				bType t = variables[match.Iden];
-				try
-				{
-					switch(t)
-					{
-						case bType.INT:
-							intVars[match.Iden] = Convert.ToInt32(Convert.ToSingle(match.Inp));
-							break;
-						case bType.FLOAT:
-							floatVars[match.Iden] = Convert.ToSingle(match.Inp);
-							break;
-						case bType.CHAR:
-							charVars[match.Iden] = Convert.ToChar(match.Inp);
-							break;
-						case bType.BOOL:
-							boolVars[match.Iden] = match.Inp == "\"TRUE\"" ? true : match.Inp == "\"FALSE\"" ? false : throw new FormatException();
-							break;
-					}
-				}
-				catch(FormatException)
-				{
-					throw new ErrorException($"Cannot assign '{match.Inp}' to type {t}.");
-				}
-			}
+            foreach (var match in idenInp)
+            {
+                bType t = variables[match.Iden];
+                try
+                {
+                    switch (t)
+                    {
+                        case bType.INT:
+                            if (match.Inp.Contains('.'))
+                                throw new ErrorException($"Cannot implicitly cast type FLOAT to INT.");
+                            else
+                                intVars[match.Iden] = Convert.ToInt32(Convert.ToSingle(match.Inp));
+                            break;
+                        case bType.FLOAT:
+                            floatVars[match.Iden] = Convert.ToSingle(match.Inp);
+                            break;
+                        case bType.CHAR:
+                            charVars[match.Iden] = Convert.ToChar(match.Inp);
+                            break;
+                        case bType.BOOL:
+                            boolVars[match.Iden] = match.Inp == "\"TRUE\"" ? true : match.Inp == "\"FALSE\"" ? false : throw new FormatException();
+                            break;
+                    }
+                }
+                catch (FormatException)
+                {
+                    throw new ErrorException($"Cannot assign '{match.Inp}' to type {t}.");
+                }
+            }
 
             y = x;
         }
