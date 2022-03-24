@@ -1,13 +1,6 @@
-VAR i, j, x, y AS INT
+VAR a = 10, b, c = 3 AS INT
 
 START
-    OUTPUT: "Input box size(x, y): "
-    INPUT: x, y
-    i = 1
-    
-    WHILE(i <= y)
-    START OUTPUT: "meh"
-
-        i += 1
-    STOP
+    b = a += c -2
+    OUTPUT: b & "#" & a
 STOP

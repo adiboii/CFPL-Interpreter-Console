@@ -28,13 +28,22 @@ namespace CFPL_Interpreter_Console
             {-1, -1, -1, 2}
         };
 
-        int[,] checkNumAssDFA = new int[6, 7]{
-            {1, -1, -1, -1, -1, -1, -1},
-            {-1, 2, 4, -1, -1, -1, -1},
-            {3, -1, -1, 5, 4, -1, -1},
-            {-1, 2, 4, -1, -1, -1, 4},
-            {5, -1, -1, 5, 4, -1, -1},
-            {-1, -1, -1, -1, -1, 5, 4}
+        // int[,] checkNumAssDFA = new int[6, 7]{
+        //     {1, -1, -1, -1, -1, -1, -1},
+        //     {-1, 2, 4, -1, -1, -1, -1},
+        //     {3, -1, -1, 5, 4, -1, -1},
+        //     {-1, 2, 4, -1, -1, -1, 4},
+        //     {5, -1, -1, 5, 4, -1, -1},
+        //     {-1, -1, -1, -1, -1, 5, 4}
+        // };
+
+        int[,] checkNumAssDFA = new int[6, 8]{
+            {1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, 2, -1, -1, -1, 4, -1, -1},
+            {3, -1, 5, 4, -1, -1, -1, 4},
+            {-1, 2, -1, -1, -1, 4, 4, 4},
+            {5, -1, 5, 4, -1, -1, -1, 4},
+            {-1, -1, -1, -1, 5, -1, 4, 4},
         };
 
         int[,] checkCharAssDFA = new int[6, 3]{
@@ -781,33 +790,35 @@ namespace CFPL_Interpreter_Console
                     case Lexeme.ASSIGN:
                         state = checkNumAssDFA[state, 1];
                         break;
-                    case Lexeme.UAST:
-                    case Lexeme.UFSLASH:
-                    case Lexeme.UPLUS:
-                    case Lexeme.UMINUS:
-                    case Lexeme.UPERCENT:
-                        state = checkNumAssDFA[state, 2];
-                        break;
                     case Lexeme.NUMBER:
-                        state = checkNumAssDFA[state, 3];
+                        state = checkNumAssDFA[state, 2];
                         break;
                     case Lexeme.LPAR:
                         pars++;
-                        state = checkNumAssDFA[state, 4];
+                        state = checkNumAssDFA[state, 3];
                         break;
                     case Lexeme.RPAR:
                         if (--pars < 0)
                         {
                             throw new ErrorException($"Illegal ')' on line {tokenList[x].line}.");
                         }
+                        state = checkNumAssDFA[state, 4];
+                        break;
+                    case Lexeme.UAST:
+                    case Lexeme.UFSLASH:
+                    case Lexeme.UPLUS:
+                    case Lexeme.UMINUS:
+                    case Lexeme.UPERCENT:
                         state = checkNumAssDFA[state, 5];
                         break;
                     case Lexeme.AST:
                     case Lexeme.FSLASH:
-                    case Lexeme.PLUS:
-                    case Lexeme.MINUS:
                     case Lexeme.PERCENT:
                         state = checkNumAssDFA[state, 6];
+                        break;
+                    case Lexeme.PLUS:
+                    case Lexeme.MINUS:
+                        state = checkNumAssDFA[state, 7];
                         break;
                     default:
                         state = -1;
