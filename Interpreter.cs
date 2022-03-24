@@ -1561,7 +1561,7 @@ namespace CFPL_Interpreter_Console
                     {
                         case bType.INT:
                             if (match.Inp.Contains('.'))
-                                throw new ErrorException($"Cannot implicitly cast type FLOAT to INT.");
+                                throw new ErrorException($"Cannot implicitly cast FLOAT to INT");
                             else
                                 intVars[match.Iden] = Convert.ToInt32(Convert.ToSingle(match.Inp));
                             break;
